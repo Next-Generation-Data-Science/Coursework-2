@@ -1,5 +1,10 @@
 # GoLang Code Generation
 
+<figure>
+  <img src="https://www.sectigo.com/uploads/images/_950xAUTO_fit_center-center_none/golang-large.png" width="350" height="200" alt="GoLang Logo">
+  <figcaption><small><i>GoLang Programming Language - Image from Sectigo</i></small></figcaption>
+</figure>
+
 ## Overview
 This repository contains the code and dataset for analysing gas flaring trends in Algeria from 2015 to 2019. The analysis is based on two datasets: one from the World Bank and another from the annual global flare site surveys. The project involves data preprocessing, clustering, and regression modeling to understand the evolution of gas flaring over time.
 
