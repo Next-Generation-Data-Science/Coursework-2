@@ -480,10 +480,11 @@ func main() {
 		outputResults.WriteString("Not enough clusters with valid data for regression.\n")
 	} else {
 		slope, intercept, r2 := doRegression(combinedRecords)
-		outputResults.WriteString(fmt.Sprintf("Regression Model (Predicting WB 2019 Flaring Volume):\n"))
-		outputResults.WriteString(fmt.Sprintf("  Slope: %.6f\n", slope))
-		outputResults.WriteString(fmt.Sprintf("  Intercept: %.6f\n", intercept))
-		outputResults.WriteString(fmt.Sprintf("  R-squared: %.6f\n", r2))
+		outputResults.WriteString("Regression Model (Predicting WB 2019 Flaring Volume):\n")
+		outputResults.WriteString("  Slope: " + strconv.FormatFloat(slope, 'f', 6, 64) + "\n")
+		outputResults.WriteString("  Intercept: " + strconv.FormatFloat(intercept, 'f', 6, 64) + "\n")
+		outputResults.WriteString("  R-squared: " + strconv.FormatFloat(r2, 'f', 6, 64) + "\n")
+
 	}
 
 	// Step 6: Observations on gas flaring in 2019 compared to 2015.
