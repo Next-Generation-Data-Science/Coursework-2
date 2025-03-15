@@ -9,7 +9,7 @@
 This repository contains the code and dataset for analysing gas flaring trends in Algeria from 2015 to 2019. The analysis is based on two datasets: one from the World Bank and another from the annual global flare site surveys. The project involves data preprocessing, clustering, and regression modeling to understand the evolution of gas flaring over time.
 
 ## Background
-According to the World Bank, "Gas flaring is the burning of the natural gas associated with oil extraction". The practice is a byproduct of oil production and has persisted for over 160 years. Gas flaring has a significant impact on the environment; In 2023, oil production sites around the world burned about 148 billion cubic meters of gas through flaring, with each cubic meter of gas burned producing 2.6 kilograms of CO2 equivalent emissions. This adds up to more than 350 million tons of CO2-equivalent emissions every year!
+According to the World Bank, "Gas flaring is the burning of the natural gas associated with oil extraction". The practice is a byproduct of oil production and has persisted for over 160 years. Gas flaring has a significant impact on the environment; In 2023, oil production sites around the world burned about 148 billion cubic meters of gas through flaring, with each cubic meter of gas burned producing 2.6 kilograms of CO<sub>2</sub> equivalent emissions. This adds up to more than 350 million tons of CO<sub>2</sub>-equivalent emissions every year!
 
 ## Dataset Description
 The following datasets are used in this analysis:
