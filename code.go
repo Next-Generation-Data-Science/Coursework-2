@@ -1,4 +1,3 @@
-// main.go
 // This script analyses gas flaring data from Algeria using two datasets:
 // the World Bank “2012-2023-individual-flare-volume-estimates.csv” (the definitive truth)
 // and the VIIRS “eog_global_flare_survey_2015_flare_list.csv”.
