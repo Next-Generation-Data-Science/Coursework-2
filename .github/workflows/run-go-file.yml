@@ -1,0 +1,20 @@
+name: Run Go File
+
+on:
+  workflow_dispatch:  # Allows manual execution from GitHub Actions
+
+jobs:
+  run-go-file:
+    runs-on: ubuntu-latest  # Runs on a Linux virtual machine
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4  # Fetches the repository code
+
+      - name: Set Up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'  # Set the Go version (modify if needed)
+
+      - name: Run Go File
+        run: go run code.go  # Replace "main.go" with your actual file name
