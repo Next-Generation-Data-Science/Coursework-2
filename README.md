@@ -43,7 +43,7 @@ You are asked to write the code in a language called GoLang. As this language is
   5. Use resulting dataset to create a regression model to explain flaring volume in 2019 using the dataset you created in Step 3.
   6. State your observations of gas flaring in 2019 compared to 2015.
 
-## How to Run the Code
+## How to Run the GoLang Code File (`code.go`)
 
 ### Option 1: Clone the Repository Locally and Run
 1. Install GoLang:  
@@ -95,3 +95,11 @@ You are asked to write the code in a language called GoLang. As this language is
            go run code.go
            ```
         4. The output will appear in the terminal.
+
+## How to Run the GoLang Executable File (`gas_analysis.exe`)
+1. Download a local copy of `gas_analysis.exe`.
+2. Run the file by double-clicking it.
+3. This will produce three files:
+    - 📄 `analysis_results.txt`: Results from GoLang script
+    - 📄 `combined_dataset.csv`: Combined dataset after clustering and averaging
+    - 📄 `dangling_viirs.csv`: Dangling rows from VIIRS dataset
