@@ -63,14 +63,35 @@ You are asked to write the code in a language called GoLang. As this language is
    go run code.go
    ```
 5. View Outputs:
-     - **📄 `analysis_results.txt`:** Results from GoLang script
-     - **📄 `combined_dataset.csv`:** Combined dataset after clustering and averaging
-     - **📄 `dangling_viirs.csv`:** Dangling rows from VIIRS dataset
+     - 📄 `analysis_results.txt`: Results from GoLang script
+     - 📄 `combined_dataset.csv`: Combined dataset after clustering and averaging
+     - 📄 `dangling_viirs.csv`: Dangling rows from VIIRS dataset
 
 ### Option 2: Run in GitHub Codespaces
-1. Click the `<> Code` button at the top right of the repository page.
-2. Select `Open with CodeSpaces`.
-3. Once the CodeSpace opens, run the GoLang script by opening a terminal and running:
-   ```
-   go run code.go
-   ```
+1. If you are a Collaborator:
+    1. Click the `<> Code` button at the top right of the repository page.
+    2. Select `Open with CodeSpaces`.
+    3. Once the CodeSpace opens, run the GoLang script by opening a terminal and running:
+       ```
+       go run code.go
+       ```
+    4. The output will appear in the terminal.
+2. If you are not a Collaborator:
+    1. Forking:
+        1. Click `Fork` in the top right of the repository page.
+        2. In the forked version:
+            1. Click the `<> Code` button at the top right of the repository page.
+            2. Select `Open with CodeSpaces`.
+            3. Once the CodeSpace opens, run the GoLang script by opening a terminal and running:
+               ```
+               go run code.go
+               ```
+        3. The output will appear in the terminal.
+    2. Pre-Configured Codespace Link:
+        1. Use the following link: https://codespaces.new/Next-Generation-Data-Science/Coursework-2
+        2. Click the `Create codespace` button.
+        3. Once the CodeSpace opens, run the GoLang script by opening a terminal and running:
+           ```
+           go run code.go
+           ```
+        4. The output will appear in the terminal.
