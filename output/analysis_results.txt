@@ -1,0 +1,42 @@
+Step 1: Data Exploration
+-------------------------------------------------
+World Bank file (2012-2023-individual-flare-volume-estimates.csv) loaded with 145642 records.
+World Bank Columns: COUNTRY, Latitude, Longitude, bcm, MMscfd, Year, Field Type, Location, Flare Level, Flaring Vol (million m3)
+Sample World Bank records:
+{Country:Albania Latitude:40.748105 Longitude:19.657746 BCM:0 MMscfd:0 Year:2012 FieldType:OIL Location:ONSHORE FlareLevel:Small FlaringVol:0}
+{Country:Albania Latitude:40.748105 Longitude:19.657746 BCM:0.000119908 MMscfd:0.011601389 Year:2013 FieldType:OIL Location:ONSHORE FlareLevel:Small FlaringVol:0.119907869}
+{Country:Albania Latitude:40.748105 Longitude:19.657746 BCM:0.006155797 MMscfd:0.595588913 Year:2014 FieldType:OIL Location:ONSHORE FlareLevel:Small FlaringVol:6.155797388}
+
+VIIRS file (eog_global_flare_survey_2015_flare_list.csv) loaded with 13099 records.
+VIIRS Columns: cntry_name, cntry_iso, catalog_id, id_number, latitude, longitude, flr_volume, avg_temp, ellip, dtc_freq, clr_obs, flr_type
+Sample VIIRS records:
+{CntryName:Venezuela CntryIso:VEN CatalogID:VNF_e2012-2015_n12550_x0636245W_y096514N_v1.0 IDNumber:-9999 Latitude:9.65143 Longitude:-63.624535 FlrVolume:1.283004954 AvgTemp:1756.16 Ellip:1.4608 DtcFreq:100 ClrObs:305 FlrType:upstream}
+{CntryName:Iraq CntryIso:IRQ CatalogID:VNF_e2012-2015_n17850_x0472834E_y310259N_v1.0 IDNumber:-9999 Latitude:31.025946 Longitude:47.283359 FlrVolume:1.212255418 AvgTemp:1681 Ellip:1.54945 DtcFreq:99.4444 ClrObs:360 FlrType:upstream}
+{CntryName:Venezuela CntryIso:VEN CatalogID:VNF_e2012-2015_n12569_x0634732W_y097358N_v1.0 IDNumber:-9999 Latitude:9.735795 Longitude:-63.473241 FlrVolume:0.831194772 AvgTemp:1806.26 Ellip:1.42614 DtcFreq:100 ClrObs:293 FlrType:upstream}
+
+Step 2: Filtering for Algeria
+Filtered World Bank records: 2592 records from Algeria.
+Filtered VIIRS records: 226 records from Algeria.
+
+Step 3: Clustering and Joining Data
+Number of clusters formed: 357
+Number of dangling VIIRS records (no matching WB cluster): 4
+
+Step 4: Exploring and Handling Dangling Rows
+Number of clusters with 2019 World Bank and VIIRS data: 107
+Strategy for dangling rows: World Bank is definitive. Any VIIRS record not within 3 km of a WB cluster is flagged as dangling and omitted from further regression analysis.
+Combined dataset saved as combined_dataset.csv
+Dangling VIIRS records saved as dangling_viirs.csv
+
+Step 5: Regression Model
+Regression Model (Predicting WB 2019 Flaring Volume):
+  Slope: 481.331928
+  Intercept: 28.847199
+  R-squared: 0.246766
+
+Step 6: Observations
+Observations:
+  - The regression analysis shows the relationship between the VIIRS measured flaring volume (from 2015) and the World Bank 2019 data.
+  - Sites with higher flaring volume in 2015 (as per VIIRS) tend to exhibit higher flaring volume in 2019, suggesting persistence in operational levels.
+  - However, note that due to clustering and measurement error, some variation exists which may be due to unobserved factors or changes in reporting.
+  - The definitive World Bank data (anchoring the analysis) combined with VIIRS records provides a more robust picture of site-level flaring trends in Algeria.
