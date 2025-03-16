@@ -1,0 +1,15 @@
+name: Run EXE File
+
+on:
+  workflow_dispatch:  # Allows manual execution from GitHub Actions
+
+jobs:
+  run-exe-file:
+    runs-on: windows-latest  # Uses a Windows virtual machine
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4  # Fetches the repository code
+
+      - name: Run EXE File
+        run: .\gas_analysis.exe  # Replace "program.exe" with the actual filename
