@@ -106,3 +106,13 @@ You are asked to write the code in a language called GoLang. As this language is
     - 📄 `analysis_results.txt`: Results from GoLang script
     - 📄 `combined_dataset.csv`: Combined dataset after clustering and averaging
     - 📄 `dangling_viirs.csv`: Dangling rows from VIIRS dataset
+
+## Bibliography
+- OpenAI, 2025. ChatGPT. [Online] 
+Available at: https://chatgpt.com/
+[Accessed March 2025].
+
+
+
+## Author
+- [Riya Chandaria](https://github.com/riyachandaria)
