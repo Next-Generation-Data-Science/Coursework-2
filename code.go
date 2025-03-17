@@ -1,10 +1,3 @@
-// This script analyses gas flaring data from Algeria using two datasets:
-// the World Bank “2012-2023-individual-flare-volume-estimates.csv” (the definitive truth)
-// and the VIIRS “eog_global_flare_survey_2015_flare_list.csv”.
-// It performs six steps: exploring variables, slicing for Algeria, clustering/joining
-// (using a 3 km Euclidean threshold via a Haversine function), handling dangling rows,
-// building a regression model for 2019 flaring volumes, and stating observations.
-
 package main
 
 import (
@@ -12,6 +5,7 @@ import (
 	"fmt"
 	"math"
 	"os"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -103,6 +97,93 @@ func readCSV(filename string) ([][]string, error) {
 		return nil, err
 	}
 	return records, nil
+}
+
+// =====================
+// New EDA Helper Functions
+// =====================
+
+// summaryStats computes count, min, max, mean, median and standard deviation for a slice of float64.
+func summaryStats(values []float64) (count int, min, max, mean, median, std float64) {
+	count = len(values)
+	if count == 0 {
+		return
+	}
+	min = values[0]
+	max = values[0]
+	sum := 0.0
+	for _, v := range values {
+		if v < min {
+			min = v
+		}
+		if v > max {
+			max = v
+		}
+		sum += v
+	}
+	mean = sum / float64(count)
+	sorted := make([]float64, count)
+	copy(sorted, values)
+	sort.Float64s(sorted)
+	if count%2 == 1 {
+		median = sorted[count/2]
+	} else {
+		median = (sorted[count/2-1] + sorted[count/2]) / 2
+	}
+	var variance float64
+	for _, v := range values {
+		variance += (v - mean) * (v - mean)
+	}
+	std = math.Sqrt(variance / float64(count))
+	return
+}
+
+// printHistogramToBuilder creates an ASCII histogram for a slice of float64 values.
+// The histogram is written to the provided strings.Builder.
+func printHistogramToBuilder(builder *strings.Builder, values []float64, bins int, title string) {
+	if title != "" {
+		builder.WriteString(title + "\n")
+	}
+	if len(values) == 0 {
+		builder.WriteString("No data to display histogram.\n")
+		return
+	}
+	// Determine min and max.
+	min, max := values[0], values[0]
+	for _, v := range values {
+		if v < min {
+			min = v
+		}
+		if v > max {
+			max = v
+		}
+	}
+	rangeWidth := (max - min) / float64(bins)
+	frequencies := make([]int, bins)
+	for _, v := range values {
+		bin := int((v - min) / rangeWidth)
+		if bin >= bins {
+			bin = bins - 1
+		}
+		frequencies[bin]++
+	}
+	// Find maximum frequency for scaling the stars.
+	maxFreq := 0
+	for _, freq := range frequencies {
+		if freq > maxFreq {
+			maxFreq = freq
+		}
+	}
+	// Print each bin.
+	for i := 0; i < bins; i++ {
+		lower := min + float64(i)*rangeWidth
+		upper := lower + rangeWidth
+		starCount := 0
+		if maxFreq > 0 {
+			starCount = frequencies[i] * 50 / maxFreq // scale bar to max 50 stars.
+		}
+		builder.WriteString(fmt.Sprintf("[%6.2f - %6.2f]: %3d | %s\n", lower, upper, frequencies[i], strings.Repeat("*", starCount)))
+	}
 }
 
 // =====================
@@ -309,6 +390,34 @@ func main() {
 		outputResults.WriteString(fmt.Sprintf("%+v\n", viirsData[i]))
 	}
 
+	// -----------------------------
+	// New Step 1.1: Summary Statistics and Visualisations
+	// -----------------------------
+	outputResults.WriteString("\nStep 1.1: Summary Statistics and Visualisations\n")
+	outputResults.WriteString("-------------------------------------------------\n")
+
+	// World Bank Flaring Volume Statistics & Histogram.
+	var wbVolumes []float64
+	for _, rec := range wbData {
+		wbVolumes = append(wbVolumes, rec.FlaringVol)
+	}
+	count, min, max, mean, median, std := summaryStats(wbVolumes)
+	outputResults.WriteString("World Bank Flaring Volume Summary:\n")
+	outputResults.WriteString(fmt.Sprintf("  Count: %d, Min: %.2f, Max: %.2f, Mean: %.2f, Median: %.2f, StdDev: %.2f\n", count, min, max, mean, median, std))
+	outputResults.WriteString("\nWorld Bank Flaring Volume Histogram:\n")
+	printHistogramToBuilder(&outputResults, wbVolumes, 10, "")
+
+	// VIIRS Flaring Volume Statistics & Histogram.
+	var viirsVolumes []float64
+	for _, rec := range viirsData {
+		viirsVolumes = append(viirsVolumes, rec.FlrVolume)
+	}
+	count, min, max, mean, median, std = summaryStats(viirsVolumes)
+	outputResults.WriteString("\nVIIRS Flaring Volume Summary:\n")
+	outputResults.WriteString(fmt.Sprintf("  Count: %d, Min: %.2f, Max: %.2f, Mean: %.2f, Median: %.2f, StdDev: %.2f\n", count, min, max, mean, median, std))
+	outputResults.WriteString("\nVIIRS Flaring Volume Histogram:\n")
+	printHistogramToBuilder(&outputResults, viirsVolumes, 10, "")
+
 	// Step 2: Slice the data to include only flaring sites from Algeria.
 	outputResults.WriteString("\nStep 2: Filtering for Algeria\n")
 	var wbAlgeria []WorldBankRecord
@@ -484,7 +593,6 @@ func main() {
 		outputResults.WriteString("  Slope: " + strconv.FormatFloat(slope, 'f', 6, 64) + "\n")
 		outputResults.WriteString("  Intercept: " + strconv.FormatFloat(intercept, 'f', 6, 64) + "\n")
 		outputResults.WriteString("  R-squared: " + strconv.FormatFloat(r2, 'f', 6, 64) + "\n")
-
 	}
 
 	// Step 6: Observations on gas flaring in 2019 compared to 2015.
