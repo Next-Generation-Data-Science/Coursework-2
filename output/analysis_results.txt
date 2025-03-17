@@ -14,6 +14,38 @@ Sample VIIRS records:
 {CntryName:Iraq CntryIso:IRQ CatalogID:VNF_e2012-2015_n17850_x0472834E_y310259N_v1.0 IDNumber:-9999 Latitude:31.025946 Longitude:47.283359 FlrVolume:1.212255418 AvgTemp:1681 Ellip:1.54945 DtcFreq:99.4444 ClrObs:360 FlrType:upstream}
 {CntryName:Venezuela CntryIso:VEN CatalogID:VNF_e2012-2015_n12569_x0634732W_y097358N_v1.0 IDNumber:-9999 Latitude:9.735795 Longitude:-63.473241 FlrVolume:0.831194772 AvgTemp:1806.26 Ellip:1.42614 DtcFreq:100 ClrObs:293 FlrType:upstream}
 
+Step 1.1: Summary Statistics and Visualisations
+-------------------------------------------------
+World Bank Flaring Volume Summary:
+  Count: 145642, Min: 0.00, Max: 1523.38, Mean: 11.82, Median: 1.14, StdDev: 41.84
+
+World Bank Flaring Volume Histogram:
+[  0.00 - 152.34]: 143786 | **************************************************
+[152.34 - 304.68]: 1289 | 
+[304.68 - 457.01]: 352 | 
+[457.01 - 609.35]: 120 | 
+[609.35 - 761.69]:  39 | 
+[761.69 - 914.03]:  25 | 
+[914.03 - 1066.36]:  13 | 
+[1066.36 - 1218.70]:   9 | 
+[1218.70 - 1371.04]:   7 | 
+[1371.04 - 1523.38]:   2 | 
+
+VIIRS Flaring Volume Summary:
+  Count: 13099, Min: 0.00, Max: 1.28, Mean: 0.01, Median: 0.00, StdDev: 0.04
+
+VIIRS Flaring Volume Histogram:
+[  0.00 -   0.13]: 12886 | **************************************************
+[  0.13 -   0.26]: 150 | 
+[  0.26 -   0.38]:  36 | 
+[  0.38 -   0.51]:  15 | 
+[  0.51 -   0.64]:   4 | 
+[  0.64 -   0.77]:   4 | 
+[  0.77 -   0.90]:   2 | 
+[  0.90 -   1.03]:   0 | 
+[  1.03 -   1.15]:   0 | 
+[  1.15 -   1.28]:   2 | 
+
 Step 2: Filtering for Algeria
 Filtered World Bank records: 2592 records from Algeria.
 Filtered VIIRS records: 226 records from Algeria.
